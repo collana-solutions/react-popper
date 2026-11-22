@@ -1,5 +1,5 @@
 {
-  "name": "@neolution-ch/react-popper",
+  "name": "@collana-solutions/react-popper",
   "version": "3.0.1",
   "description": "Official library to use Popper on React projects",
   "license": "MIT",
@@ -7,7 +7,7 @@
   "contributors": [
     "Federico Zivolo <federico.zivolo@gmail.com> (https://fezvrasta.github.io)"
   ],
-  "homepage": "https://popper.js.org/react-popper",
+  "homepage": "https://github.com/collana-solutions/react-popper#readme",
   "main": "lib/cjs/index.js",
   "module": "lib/esm/index.js",
   "typings": "typings/react-popper.d.ts",
@@ -18,7 +18,7 @@
     "/typings/react-popper.d.ts"
   ],
   "scripts": {
-    "build": "yarn build:clean && yarn build:esm && yarn build:cjs && yarn build:umd && yarn build:flow",
+    "build": "pnpm run build:clean && pnpm run build:esm && pnpm run build:cjs && pnpm run build:umd && pnpm run build:flow",
     "build:clean": "rimraf dist/ && rimraf lib/",
     "build:umd": "rollup -c && rimraf dist/index.esm.js",
     "build:esm": "cross-env BABEL_ENV=esm babel src --out-dir lib/esm",
@@ -26,15 +26,17 @@
     "build:flow": "flow-copy-source --ignore '{__typings__/*,*.test}.js' src lib/cjs",
     "demo:dev": "parcel --out-dir demo/dist demo/index.html",
     "demo:build": "parcel build --out-dir demo/dist demo/index.html --public-url=/react-popper",
-    "demo:deploy": "yarn demo:build && gh-pages -d demo/dist",
-    "test": "yarn test:eslint && yarn test:flow && yarn test:ts && yarn test:jest",
+    "demo:deploy": "pnpm run demo:build && gh-pages -d demo/dist",
+    "test": "pnpm run test:eslint && pnpm run test:flow && pnpm run test:ts && pnpm run test:jest",
     "test:ts": "tsc --project ./typings/tests",
     "test:flow": "flow check",
     "test:jest": "jest",
     "test:eslint": "eslint src",
-    "prepare": "yarn build",
+    "prepare": "pnpm run build",
     "precommit": "pretty-quick --staged && test",
-    "prepublishOnly": "git-branch-is master"
+    "changeset": "changeset",
+    "version-packages": "changeset version",
+    "release": "changeset publish"
   },
   "jest": {
     "setupFilesAfterEnv": [
@@ -43,10 +45,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/popperjs/react-popper"
+    "url": "git+https://github.com/collana-solutions/react-popper"
   },
   "bugs": {
-    "url": "https://github.com/popperjs/react-popper/issues"
+    "url": "https://github.com/collana-solutions/react-popper/issues"
   },
   "keywords": [
     "react",
@@ -75,15 +77,16 @@
     "@babel/preset-env": "^7.9.0",
     "@babel/preset-flow": "^7.9.0",
     "@babel/preset-react": "^7.9.4",
+    "@changesets/changelog-github": "^1.0.1",
+    "@changesets/cli": "^3.0.3",
     "@emotion/core": "^10.0.28",
     "@emotion/styled": "^10.0.27",
     "@popperjs/core": "^2.3.3",
-    "@release-it/keep-a-changelog": "^3.1.0",
     "@rollup/plugin-commonjs": "^11.0.2",
     "@rollup/plugin-node-resolve": "^7.1.1",
     "@rollup/plugin-replace": "^2.3.1",
-    "@testing-library/react": "^16.3.2",
     "@testing-library/dom": "^10.0.0",
+    "@testing-library/react": "^16.3.2",
     "@types/react": "^16.9.29",
     "babel-eslint": "^10.1.0",
     "babel-jest": "^25.2.4",
@@ -98,16 +101,15 @@
     "flow-bin": "^0.176.2",
     "flow-copy-source": "^2.0.9",
     "gh-pages": "^2.2.0",
-    "git-branch-is": "^3.1.0",
     "jest": "^25.2.4",
     "parcel": "^2.16.4",
+    "pkg-pr-new": "^0.0.93",
     "prettier": "^2.0.2",
     "pretty-quick": "^2.0.1",
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
     "react-spring": "^8.0.27",
     "react-test-renderer": "^19.2.4",
-    "release-it": "^15.10.3",
     "rimraf": "^3.0.2",
     "rollup": "^2.3.1",
     "rollup-plugin-babel": "^4.4.0",
@@ -117,5 +119,6 @@
   "publishConfig": {
     "access": "public",
     "registry": "https://registry.npmjs.org"
-  }
+  },
+  "packageManager": "pnpm@11.22.0"
 }
